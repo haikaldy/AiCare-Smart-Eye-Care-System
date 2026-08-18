@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AiCare UI Mockup</title>
+    <link rel="stylesheet" href="aicare_ui.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <main class="app-grid">
+        <section class="panel main-panel">
+          <div class="glow"></div>
+
+          <div class="brand hero-brand">
+            <div class="brand-mark hero-logo">
+              <img src="AiCare Logo.png" alt="AiCare Logo" />
+            </div>
+            <div class="brand-copy hero-copy">
+              <p>
+                Smart eye-distance monitoring for healthier screen habits using
+                YOLO26s
+              </p>
+            </div>
+          </div>
+
+          <h2 class="hero-title">
+            Protect your eyes while you
+            <span class="gradient-text">work, study, and gaming</span>.
+          </h2>
+
+          <p class="hero-desc">
+            AiCare monitors your screen distance in real time and reminds you
+            when you are too close, too far, or need a 20-20-20 eye break.
+          </p>
+
+          <div class="actions">
+            <button class="btn-primary" id="startBtn">
+              ▶ Start Monitoring
+            </button>
+            <button class="btn-secondary" id="stopBtn">■ Stop</button>
+          </div>
+
+          <div class="quick-stats">
+            <div class="stat">
+              <div class="stat-label">Recommended Distance</div>
+              <div class="stat-value">55–72 cm</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">Mode</div>
+              <div class="stat-value">Background Ready</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">Reminder Type</div>
+              <div class="stat-value">Visual + Alert</div>
+            </div>
+          </div>
+
+          <div class="admin-panel" id="adminPanel">
+            <div class="admin-header">
+              <div>
+                <strong>User Settings</strong>
+                <span>Timer controls and notification testing</span>
+              </div>
+              <div class="settings-actions">
+                <span class="admin-badge">Demo Mode</span>
+              </div>
+            </div>
+
+            <div class="admin-grid">
+              <button class="admin-btn" id="add1MinBtn">+1 min</button>
+              <button class="admin-btn" id="add5MinBtn">+5 min</button>
+              <button class="admin-btn" id="add10MinBtn">+10 min</button>
+              <button class="admin-btn danger" id="testCloseBtn">
+                Test Close
+              </button>
+              <button class="admin-btn warning" id="testFarBtn">
+                Test Far
+              </button>
+              <button class="admin-btn info" id="testErgoBtn">
+                Test 20-20-20
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel side-panel monitor-panel">
+          <div class="panel-top-controls">
+            <div class="status-pill" id="statusPill">
+              <span class="status-dot"></span>
+              <span id="statusText">Camera idle</span>
+            </div>
+            <button
+              class="info-fab"
+              id="infoToggleBtn"
+              type="button"
+              aria-label="Open AiCare tips"
+            >
+              ?
+            </button>
+          </div>
+
+          <div class="preview" id="previewBox">
+            <video id="camera" autoplay playsinline muted></video>
+            <canvas id="detectionCanvas"></canvas>
+
+            <div
+              class="camera-loading"
+              id="cameraLoading"
+              aria-live="polite"
+              style="display: none"
+            >
+              <div class="loader" aria-hidden="true">
+                <div class="loader__bar"></div>
+                <div class="loader__bar"></div>
+                <div class="loader__bar"></div>
+                <div class="loader__bar"></div>
+                <div class="loader__bar"></div>
+                <div class="loader__ball"></div>
+                <div class="loader-text"><span>Ai</span><span>Care</span></div>
+              </div>
+              <p class="camera-loading-copy" id="cameraLoadingText">
+                Starting camera preview... Press ? for tips while waiting.
+              </p>
+            </div>
+
+            <div class="placeholder" id="placeholder">
+              <div class="placeholder-icon">📷</div>
+              <h2>Camera standby</h2>
+              <p>Once started, the webcam preview will appear here!</p>
+            </div>
+
+            <div
+              class="camera-overlay"
+              id="cameraOverlay"
+              style="display: none"
+            >
+              <div class="camera-top">
+                <div class="cam-chip">🔴 Live camera</div>
+                <div class="cam-chip" id="distanceState">Distance: Safe</div>
+              </div>
+              <div class="camera-bottom">
+                <div class="cam-chip">Mode: Background monitoring</div>
+                <div class="cam-chip" id="previewState">Preview visible</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="monitor-cards">
+            <div class="mini-card safe">
+              <div class="label">Current Status</div>
+              <div class="value status-value-line">
+                <span id="currentStatus">Waiting</span>
+                <span
+                  class="confidence-help"
+                  tabindex="0"
+                  aria-label="Model confidence explanation"
+                  data-tooltip="Confidence = YOLO26s certainty for the label. It is not distance in cm."
+                  >i</span
+                >
+              </div>
+            </div>
+            <div class="mini-card info session-card">
+              <div class="label">Session Time</div>
+              <div class="value" id="sessionTime">00:00</div>
+            </div>
+            <div class="mini-card total-screen-card">
+              <div class="label">Total Screen Time</div>
+              <div class="value" id="totalScreenTime">00:00</div>
+            </div>
+            <div class="mini-card warning">
+              <div class="label">Reminder</div>
+              <div class="value" id="reminderText">No alert yet</div>
+            </div>
+            <div class="mini-card access-card">
+              <div class="label">Camera Access</div>
+              <div class="value access-not-granted" id="cameraAccess">
+                Not granted
+              </div>
+            </div>
+          </div>
+
+          <div class="monitor-strip" id="monitorStrip">
+            <div class="monitor-left">
+              <div class="monitor-badge">🟢</div>
+              <div class="monitor-copy">
+                <strong>AiCare is monitoring in the background</strong>
+                <span>Keep this tab open to continue webcam tracking.</span>
+              </div>
+            </div>
+            <button class="small-btn" id="togglePreviewBtn">
+              Hide Camera Preview
+            </button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="info-backdrop" id="infoBackdrop" aria-hidden="true"></div>
+
+    <aside class="info-drawer" id="infoDrawer" aria-hidden="true">
+      <div class="info-drawer-header">
+        <div>
+          <span class="info-kicker">AiCare Tips</span>
+          <h2>Quick tips</h2>
+        </div>
+        <button
+          class="info-close"
+          id="infoCloseBtn"
+          type="button"
+          aria-label="Close AiCare information"
+        >
+          ×
+        </button>
+      </div>
+
+      <div class="feature-card panel">
+        <div class="feature-icon">👀</div>
+        <h3>What is 20-20-20 rule?</h3>
+        <p>
+          After 20 minutes of screen use, look away for 20 seconds. AiCare
+          reminds you and resets the session timer after the break is completed.
+        </p>
+      </div>
+
+      <div class="feature-card panel">
+        <div class="feature-icon">🔔</div>
+        <h3>Notify User</h3>
+        <p>
+          AiCare shows Windows notification banners with sound when the user is
+          too close, too far, returns to a safe distance, or completes a break.
+        </p>
+      </div>
+
+
+
+      <div class="feature-card panel">
+        <div class="feature-icon">%</div>
+        <h3>What does confidence mean?</h3>
+        <p>
+          Confidence shows how sure YOLO26s is about the detected label. It is
+          not the exact screen distance, but a model certainty score.
+        </p>
+      </div>
+
+      <div class="feature-card panel">
+        <div class="feature-icon">🎥</div>
+        <h3>How does this app work?</h3>
+        <p>
+          The webcam captures frames, Flask sends them to the YOLO model, and
+          AiCare classifies the viewing distance as Too Close, Safe, or Too Far.
+        </p>
+      </div>
+    </aside>
+
+    <div class="toast-container" id="toastContainer"></div>
+    <script src="aicare_ui.js"></script>
+  </body>
+</html>

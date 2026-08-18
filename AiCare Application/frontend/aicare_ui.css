@@ -1,0 +1,2160 @@
+:root {
+  --bg-1: #bfded9;
+  --bg-2: #bdddf2;
+  --card: rgba(222, 239, 241, 0.88);
+  --card-2: rgba(214, 233, 238, 0.94);
+  --text: #102833;
+  --muted: #486777;
+  --line: rgba(16, 40, 51, 0.14);
+  --green: #00b86b;
+  --blue: #1f8fff;
+  --danger: #e95656;
+  --warning: #c99000;
+  --shadow: 0 14px 34px rgba(31, 143, 255, 0.16);
+  --radius-lg: 26px;
+  --radius-md: 18px;
+  --radius-sm: 12px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 15% 20%, rgba(0, 184, 107, 0.30), transparent 34%),
+    radial-gradient(circle at 85% 18%, rgba(31, 143, 255, 0.28), transparent 32%),
+    linear-gradient(135deg, var(--bg-1), var(--bg-2));
+  overflow: hidden;
+  position: relative;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.28;
+  background: linear-gradient(115deg, transparent 0%, rgba(255,255,255,0.28) 45%, transparent 65%);
+  transform: translateX(-30%);
+  animation: softLightSweep 18s ease-in-out infinite alternate;
+}
+
+@keyframes softLightSweep {
+  from { transform: translateX(-35%) skewX(-12deg); }
+  to { transform: translateX(35%) skewX(-12deg); }
+}
+
+.shell {
+  width: min(1260px, 100vw);
+  height: 100vh;
+  margin: 0 auto;
+  padding: clamp(22px, 2.6vh, 34px) clamp(24px, 3.2vw, 42px);
+  position: relative;
+}
+
+.app-grid {
+  height: 100%;
+  display: grid;
+  grid-template-columns: minmax(340px, 0.76fr) minmax(610px, 1.24fr);
+  gap: clamp(22px, 3vw, 34px);
+  align-items: stretch;
+}
+
+.panel,
+.mini-card,
+.stat,
+.feature-card,
+.admin-panel {
+  background: var(--card);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(16px);
+}
+
+.panel {
+  border-radius: var(--radius-lg);
+}
+
+.main-panel {
+  padding: clamp(18px, 2.2vw, 24px);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.glow {
+  position: absolute;
+  inset: auto -40px -70px auto;
+  width: 190px;
+  height: 190px;
+  background: radial-gradient(circle, rgba(58, 166, 255, 0.22), transparent 70%);
+  pointer-events: none;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.hero-brand {
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.brand-mark,
+.hero-logo {
+  width: clamp(128px, 13vw, 166px);
+  height: auto;
+  overflow: visible;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  border: none;
+}
+
+.brand-mark img,
+.hero-logo img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.brand-copy p,
+.hero-copy p {
+  margin: 0;
+  max-width: 340px;
+  color: #335866;
+  font-size: clamp(0.78rem, 1vw, 0.92rem);
+  line-height: 1.35;
+  font-weight: 600;
+}
+
+.floating-status {
+  position: absolute;
+  top: clamp(28px, 3vh, 40px);
+  right: clamp(82px, 5vw, 104px);
+  z-index: 20;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 13px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.46);
+  border: 1px solid rgba(16, 40, 51, 0.12);
+  color: #335866;
+  font-size: 0.86rem;
+}
+
+.status-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #7d8ea5;
+  box-shadow: 0 0 0 0 rgba(125, 142, 165, 0.3);
+  transition: 0.25s ease;
+}
+
+.status-pill.active .status-dot {
+  background: var(--green);
+  box-shadow: 0 0 0 8px rgba(24, 211, 158, 0.12);
+}
+
+.status-pill.active {
+  color: #1e5b4f;
+  background: rgba(24, 211, 158, 0.16);
+}
+
+.info-fab {
+  position: absolute;
+  top: clamp(28px, 3vh, 40px);
+  right: clamp(28px, 3.2vw, 44px);
+  z-index: 25;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(16, 40, 51, 0.14);
+  background: rgba(237, 249, 250, 0.88);
+  color: #12303c;
+  font-size: 1.45rem;
+  font-weight: 900;
+  box-shadow: 0 12px 28px rgba(31, 143, 255, 0.18);
+}
+
+.hero-title {
+  margin: 0;
+  font-size: clamp(1.9rem, 3.15vw, 3.3rem);
+  line-height: 1.02;
+  letter-spacing: -0.06em;
+  max-width: 12ch;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, var(--green), var(--blue));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-desc {
+  max-width: 48ch;
+  color: var(--muted);
+  font-size: clamp(0.78rem, 0.95vw, 0.95rem);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+button {
+  border: 0;
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    opacity 0.18s ease,
+    background 0.18s ease;
+  font: inherit;
+}
+
+button:hover { transform: translateY(-1px); }
+button:active { transform: translateY(0); }
+
+.btn-primary,
+.btn-secondary {
+  padding: 12px 15px;
+  border-radius: 15px;
+  font-weight: 700;
+  font-size: 0.88rem;
+}
+
+.btn-primary {
+  color: #04121b;
+  background: linear-gradient(135deg, var(--green), #62e6ff);
+  box-shadow: 0 14px 30px rgba(24, 211, 158, 0.22);
+}
+
+.btn-secondary {
+  color: #12303c;
+  background: rgba(255, 255, 255, 0.34);
+  border: 1px solid rgba(16, 40, 51, 0.12);
+}
+
+.quick-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.stat {
+  padding: 12px;
+  border-radius: 16px;
+  background: rgba(222, 239, 241, 0.72);
+}
+
+.stat-label {
+  color: var(--muted);
+  font-size: 0.7rem;
+  margin-bottom: 6px;
+}
+
+.stat-value {
+  color: #091f28;
+  font-size: clamp(0.84rem, 1vw, 1rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.monitor-strip {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 11px;
+  border-radius: 18px;
+  border: 1px solid rgba(24, 211, 158, 0.24);
+  background: linear-gradient(135deg, rgba(24, 211, 158, 0.12), rgba(58, 166, 255, 0.1));
+}
+
+.monitor-strip.active {
+  display: flex;
+  animation: slideUp 0.28s ease;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.monitor-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.monitor-badge {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.22);
+  font-size: 1rem;
+}
+
+.monitor-copy strong {
+  display: block;
+  font-size: 0.82rem;
+}
+
+.monitor-copy span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.74rem;
+  margin-top: 2px;
+}
+
+.small-btn {
+  padding: 9px 12px;
+  border-radius: 12px;
+  color: #12303c;
+  background: rgba(255, 255, 255, 0.34);
+  border: 1px solid rgba(16, 40, 51, 0.12);
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.admin-panel {
+  margin-top: auto;
+  padding: 13px;
+  border-radius: 18px;
+  border: 1px solid rgba(58, 166, 255, 0.18);
+  background: rgba(222, 239, 241, 0.70);
+}
+
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.admin-header strong {
+  display: block;
+  color: #091f28;
+  font-size: 0.92rem;
+}
+
+.admin-header span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.72rem;
+  margin-top: 2px;
+}
+
+.admin-badge {
+  padding: 6px 9px;
+  border-radius: 999px;
+  background: rgba(58, 166, 255, 0.12);
+  border: 1px solid rgba(58, 166, 255, 0.2);
+  color: #246683 !important;
+  white-space: nowrap;
+  font-size: 0.72rem !important;
+}
+
+.admin-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.admin-btn {
+  padding: 10px 8px;
+  border-radius: 11px;
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: #12303c;
+  background: rgba(255, 255, 255, 0.34);
+  border: 1px solid rgba(16, 40, 51, 0.12);
+}
+
+.admin-btn.danger {
+  background: rgba(255, 107, 107, 0.14);
+  border-color: rgba(255, 107, 107, 0.28);
+}
+
+.admin-btn.warning {
+  background: rgba(255, 209, 102, 0.14);
+  border-color: rgba(255, 209, 102, 0.28);
+}
+
+.admin-btn.info {
+  background: rgba(58, 166, 255, 0.14);
+  border-color: rgba(58, 166, 255, 0.28);
+}
+
+.side-panel {
+  padding: clamp(16px, 2vw, 22px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+  min-height: 0;
+}
+
+.monitor-panel {
+  min-width: 0;
+}
+
+.preview {
+  position: relative;
+  flex: 0 0 auto;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  min-height: clamp(300px, 44vh, 470px);
+  max-height: 66vh;
+  border-radius: 22px;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(185, 221, 225, 0.62), rgba(155, 190, 201, 0.55)),
+    linear-gradient(135deg, rgba(0, 184, 107, 0.14), rgba(31, 143, 255, 0.14));
+  border: 1px solid rgba(16, 40, 51, 0.16);
+  display: grid;
+  place-items: center;
+}
+
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none;
+  background: #081019;
+}
+
+#camera {
+  transform: scaleX(-1);
+}
+
+#detectionCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  transform: none;
+}
+
+.camera-overlay {
+  position: absolute;
+  inset: 0;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.camera-top,
+.camera-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.cam-chip {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 11px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.42);
+  border: 1px solid rgba(16, 40, 51, 0.12);
+  color: #335866;
+  font-size: 0.82rem;
+}
+
+.placeholder {
+  text-align: center;
+  padding: 24px;
+  max-width: 380px;
+}
+
+.placeholder-icon {
+  width: 76px;
+  height: 76px;
+  margin: 0 auto 14px;
+  border-radius: 22px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(145deg, rgba(24, 211, 158, 0.16), rgba(58, 166, 255, 0.16));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 1.8rem;
+}
+
+.placeholder h2 {
+  margin: 0 0 8px;
+  color: #091f28;
+  font-size: 1.18rem;
+  letter-spacing: -0.04em;
+}
+
+.placeholder p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
+  font-size: 0.88rem;
+}
+
+.monitor-cards {
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.mini-card {
+  padding: 13px;
+  border-radius: 16px;
+  background: var(--card-2);
+  box-shadow: none;
+}
+
+.mini-card .label {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-bottom: 7px;
+}
+
+.mini-card .value {
+  color: #091f28;
+  font-size: clamp(0.85rem, 1vw, 1.04rem);
+  font-weight: 800;
+}
+
+.mini-card.safe .value { color: var(--green); }
+.mini-card.warning .value { color: var(--warning); }
+.mini-card.info .value { color: #53bde9; }
+
+.info-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: rgba(8, 16, 27, 0.24);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease;
+}
+
+.info-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.info-drawer {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  bottom: 14px;
+  z-index: 90;
+  width: min(360px, calc(100vw - 28px));
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 26px;
+  background: rgba(222, 239, 241, 0.96);
+  border: 1px solid rgba(16, 40, 51, 0.14);
+  box-shadow: 0 24px 60px rgba(16, 40, 51, 0.28);
+  backdrop-filter: blur(18px);
+  transform: translateX(calc(100% + 30px));
+  transition: transform 0.24s ease;
+  overflow: hidden;
+}
+
+.info-drawer.active {
+  transform: translateX(0);
+}
+
+.info-drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.info-kicker {
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.info-drawer-header h2 {
+  margin: 3px 0 0;
+  font-size: 1.4rem;
+  letter-spacing: -0.05em;
+}
+
+.info-close {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid var(--line);
+  color: #12303c;
+  font-size: 1.35rem;
+}
+
+.feature-card {
+  padding: 16px;
+  border-radius: 20px;
+  background: rgba(222, 239, 241, 0.88);
+  box-shadow: none;
+  min-height: 0;
+}
+
+.feature-card h3 {
+  margin: 12px 0 8px;
+  color: #091f28;
+  letter-spacing: -0.03em;
+  font-size: 1rem;
+}
+
+.feature-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
+  font-size: 0.86rem;
+}
+
+.feature-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: linear-gradient(145deg, rgba(24, 211, 158, 0.16), rgba(58, 166, 255, 0.16));
+  display: grid;
+  place-items: center;
+  font-size: 1.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Legacy in-browser toast styles are kept for compatibility, but the current app uses native Windows notifications. */
+.toast-container {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: min(360px, calc(100vw - 36px));
+  pointer-events: none;
+}
+
+.toast { display: none; }
+
+@media (max-width: 1120px) {
+  .shell { padding: 18px; }
+  .app-grid { grid-template-columns: minmax(310px, 0.82fr) minmax(480px, 1.18fr); gap: 18px; }
+  .main-panel { padding: 15px; gap: 10px; }
+  .side-panel { padding: 14px; }
+  .monitor-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hero-title { font-size: clamp(1.7rem, 3vw, 2.6rem); }
+  .quick-stats { grid-template-columns: 1fr; gap: 7px; }
+}
+
+@media (max-height: 760px) {
+  .shell { padding: 14px 18px; }
+  .app-grid { gap: 16px; }
+  .main-panel { padding: 14px; gap: 9px; }
+  .brand-mark,
+  .hero-logo { width: 128px; }
+  .hero-title { font-size: clamp(1.55rem, 2.7vw, 2.35rem); }
+  .hero-desc { line-height: 1.4; }
+  .stat { padding: 9px; }
+  .admin-panel { padding: 10px; }
+  .admin-btn { padding: 8px 7px; }
+  .monitor-strip { padding: 8px; }
+  .placeholder-icon { width: 66px; height: 66px; }
+  .mini-card { padding: 10px; }
+  .mini-card .value { font-size: 0.88rem; }
+}
+
+@media (max-width: 760px) {
+  body { overflow: auto; }
+  .shell { height: auto; min-height: 100vh; }
+  .app-grid { grid-template-columns: 1fr; }
+  .preview { min-height: 320px; }
+  .floating-status { position: fixed; top: 12px; right: 64px; }
+  .info-fab { position: fixed; top: 12px; right: 12px; }
+  .monitor-cards { grid-template-columns: 1fr 1fr; }
+}
+
+
+/* Camera spacing refinement: keep the preview as a normal landscape webcam rectangle. */
+@media (max-height: 820px) {
+  .preview {
+    min-height: clamp(270px, 42vh, 390px);
+    max-height: 58vh;
+  }
+}
+
+@media (min-width: 1180px) and (min-height: 850px) {
+  .app-grid {
+    max-height: 900px;
+    margin: auto 0;
+  }
+}
+
+
+/* Camera loading overlay: adapted from the uploaded AiCare loader. */
+.camera-loading {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 38px;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(98, 230, 255, 0.18), transparent 34%),
+    linear-gradient(135deg, rgba(7, 17, 31, 0.92), rgba(13, 30, 52, 0.86));
+  color: #eaf6ff;
+  font-family: "Poppins", "Segoe UI", sans-serif;
+}
+
+.camera-loading.monitoring {
+  background:
+    radial-gradient(circle at 50% 38%, rgba(98, 230, 255, 0.12), transparent 34%),
+    linear-gradient(135deg, rgba(7, 17, 31, 0.44), rgba(13, 30, 52, 0.34));
+  backdrop-filter: blur(2px);
+}
+
+.camera-loading.monitoring .loader {
+  opacity: 0.92;
+  transform: scale(0.92);
+}
+
+.camera-loading.monitoring .camera-loading-copy {
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(8, 16, 27, 0.34);
+  color: rgba(234, 246, 255, 0.92);
+}
+
+.loader {
+  position: relative;
+  width: 90px;
+  height: 110px;
+}
+
+.loader__bar {
+  position: absolute;
+  bottom: 0;
+  width: 12px;
+  height: 50%;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #62e6ff, #18d39e);
+  transform-origin: center bottom;
+  box-shadow: 0 0 12px rgba(24, 211, 158, 0.22);
+}
+
+.loader__bar:nth-child(1) { left: 0px;  transform: scale(1,0.2); animation: barUp1 4s infinite; }
+.loader__bar:nth-child(2) { left: 18px; transform: scale(1,0.4); animation: barUp2 4s infinite; }
+.loader__bar:nth-child(3) { left: 36px; transform: scale(1,0.6); animation: barUp3 4s infinite; }
+.loader__bar:nth-child(4) { left: 54px; transform: scale(1,0.8); animation: barUp4 4s infinite; }
+.loader__bar:nth-child(5) { left: 72px; transform: scale(1,1);   animation: barUp5 4s infinite; }
+
+.loader__ball {
+  position: absolute;
+  bottom: 8px;
+  left: -2px;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: ball 4s infinite;
+}
+
+.loader__ball::before {
+  content: "A";
+  font-size: 18px;
+  font-weight: 800;
+  font-family: "Trebuchet MS", "Poppins", sans-serif;
+  color: #ffffff;
+  text-shadow:
+    0 0 8px rgba(98, 230, 255, 0.7),
+    0 0 14px rgba(24, 211, 158, 0.45);
+}
+
+.loader-text {
+  position: absolute;
+  top: 130px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.loader-text span:first-child { color: #18d39e; }
+.loader-text span:last-child { color: #68bfff; }
+
+.camera-loading-copy {
+  margin: 0;
+  color: rgba(234, 246, 255, 0.84);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+@keyframes ball {
+  0%   { transform: translate(0, 0); }
+  5%   { transform: translate(10px, -14px); }
+  10%  { transform: translate(18px, -10px); }
+  17%  { transform: translate(28px, -24px); }
+  20%  { transform: translate(36px, -20px); }
+  27%  { transform: translate(46px, -34px); }
+  30%  { transform: translate(54px, -30px); }
+  37%  { transform: translate(64px, -44px); }
+  40%  { transform: translate(72px, -40px); }
+  50%  { transform: translate(72px, 0); }
+  57%  { transform: translate(64px, -14px); }
+  60%  { transform: translate(54px, -10px); }
+  67%  { transform: translate(46px, -24px); }
+  70%  { transform: translate(36px, -20px); }
+  77%  { transform: translate(28px, -34px); }
+  80%  { transform: translate(18px, -30px); }
+  87%  { transform: translate(10px, -44px); }
+  90%  { transform: translate(0px, -40px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes barUp1 {
+  0%,40%,100% { transform: scale(1,.2); }
+  50%,90% { transform: scale(1,1); }
+}
+@keyframes barUp2 {
+  0%,40%,100% { transform: scale(1,.4); }
+  50%,90% { transform: scale(1,.8); }
+}
+@keyframes barUp3 {
+  0%,100% { transform: scale(1,.6); }
+}
+@keyframes barUp4 {
+  0%,40%,100% { transform: scale(1,.8); }
+  50%,90% { transform: scale(1,.4); }
+}
+@keyframes barUp5 {
+  0%,40%,100% { transform: scale(1,1); }
+  50%,90% { transform: scale(1,.2); }
+}
+
+
+/* Current status color states */
+.mini-card.status-close .value {
+  color: var(--danger);
+}
+
+.mini-card.status-safe .value {
+  color: var(--green);
+}
+
+.mini-card.status-far .value {
+  color: var(--warning);
+}
+
+.mini-card.status-neutral .value {
+  color: #53bde9;
+}
+
+
+/* Centered dashboard layout refinement */
+.shell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-grid {
+  width: min(1120px, 100%);
+  height: auto;
+  min-height: min(780px, calc(100vh - 56px));
+  max-height: 860px;
+  grid-template-columns: minmax(340px, 420px) minmax(600px, 700px);
+  justify-content: center;
+  align-items: stretch;
+}
+
+.side-panel {
+  justify-content: center;
+}
+
+/* Five compact cards inside the monitor panel */
+.monitor-cards {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.total-screen-card .value {
+  color: #0e4a78;
+}
+
+/* Camera access status colors */
+#cameraAccess.access-not-granted {
+  color: var(--warning);
+}
+
+#cameraAccess.access-granted {
+  color: #0e4a78;
+}
+
+@media (max-width: 1120px) {
+  .app-grid {
+    width: 100%;
+    min-height: calc(100vh - 36px);
+    grid-template-columns: minmax(310px, 0.82fr) minmax(520px, 1.18fr);
+  }
+
+  .monitor-cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .shell {
+    display: block;
+  }
+
+  .app-grid {
+    min-height: 0;
+    grid-template-columns: 1fr;
+  }
+
+  .monitor-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+
+/* Comfort mode / soft dark mode toggle */
+.settings-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.theme-toggle {
+  padding: 6px 9px;
+  border-radius: 999px;
+  background: rgba(31, 143, 255, 0.12);
+  border: 1px solid rgba(31, 143, 255, 0.22);
+  color: #246683;
+  font-size: 0.72rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.theme-toggle[aria-pressed="true"] {
+  background: rgba(66, 109, 227, 0.22);
+  border-color: rgba(66, 109, 227, 0.34);
+  color: #dce8ff;
+}
+
+/* Requested camera access color */
+#cameraAccess.access-granted {
+  color: #426DE3;
+}
+
+body.comfort-mode {
+  --bg-1: #17394a;
+  --bg-2: #224e68;
+  --card: rgba(26, 55, 70, 0.86);
+  --card-2: rgba(31, 64, 82, 0.90);
+  --text: #eaf7fb;
+  --muted: #b6d2dd;
+  --line: rgba(222, 246, 255, 0.16);
+  --shadow: 0 18px 46px rgba(5, 18, 31, 0.34);
+  color: var(--text);
+  background:
+    radial-gradient(circle at 15% 18%, rgba(0, 184, 107, 0.22), transparent 34%),
+    radial-gradient(circle at 82% 16%, rgba(66, 109, 227, 0.30), transparent 34%),
+    linear-gradient(135deg, var(--bg-1), var(--bg-2));
+}
+
+body.comfort-mode::after {
+  opacity: 0.13;
+}
+
+body.comfort-mode .panel,
+body.comfort-mode .mini-card,
+body.comfort-mode .stat,
+body.comfort-mode .feature-card,
+body.comfort-mode .admin-panel {
+  background: var(--card);
+  border-color: var(--line);
+  box-shadow: var(--shadow);
+}
+
+body.comfort-mode .side-panel,
+body.comfort-mode .main-panel {
+  background: rgba(25, 53, 69, 0.88);
+}
+
+body.comfort-mode .hero-title,
+body.comfort-mode .placeholder h2,
+body.comfort-mode .stat-value,
+body.comfort-mode .mini-card .value,
+body.comfort-mode .feature-card h3,
+body.comfort-mode .admin-header strong,
+body.comfort-mode .monitor-copy strong,
+body.comfort-mode .info-drawer-header h2 {
+  color: #edfaff;
+}
+
+body.comfort-mode .hero-desc,
+body.comfort-mode .placeholder p,
+body.comfort-mode .feature-card p,
+body.comfort-mode .stat-label,
+body.comfort-mode .mini-card .label,
+body.comfort-mode .admin-header span,
+body.comfort-mode .brand-copy p,
+body.comfort-mode .hero-copy p,
+body.comfort-mode .monitor-copy span,
+body.comfort-mode .info-kicker {
+  color: #b6d2dd;
+}
+
+body.comfort-mode .preview {
+  background:
+    linear-gradient(180deg, rgba(31, 71, 86, 0.72), rgba(20, 48, 62, 0.72)),
+    linear-gradient(135deg, rgba(0, 184, 107, 0.12), rgba(66, 109, 227, 0.18));
+  border-color: rgba(222, 246, 255, 0.18);
+}
+
+body.comfort-mode .status-pill,
+body.comfort-mode .cam-chip,
+body.comfort-mode .btn-secondary,
+body.comfort-mode .small-btn,
+body.comfort-mode .admin-btn,
+body.comfort-mode .info-fab,
+body.comfort-mode .info-close,
+body.comfort-mode .theme-toggle,
+body.comfort-mode .admin-badge {
+  color: #dff4fb !important;
+  background: rgba(235, 251, 255, 0.12);
+  border-color: rgba(222, 246, 255, 0.18);
+}
+
+body.comfort-mode .status-pill.active {
+  color: #cefff0;
+  background: rgba(0, 184, 107, 0.18);
+}
+
+body.comfort-mode .monitor-strip {
+  background: linear-gradient(135deg, rgba(0, 184, 107, 0.14), rgba(66, 109, 227, 0.16));
+  border-color: rgba(98, 230, 255, 0.22);
+}
+
+body.comfort-mode .admin-panel {
+  background: rgba(25, 53, 69, 0.72);
+}
+
+body.comfort-mode .info-drawer {
+  background: rgba(25, 53, 69, 0.96);
+  border-color: rgba(222, 246, 255, 0.18);
+}
+
+body.comfort-mode .info-backdrop.active {
+  background: rgba(3, 12, 20, 0.52);
+}
+
+body.comfort-mode .access-not-granted {
+  color: #f3c242 !important;
+}
+
+body.comfort-mode #cameraAccess.access-granted {
+  color: #426DE3 !important;
+}
+
+body.comfort-mode .total-screen-card .value,
+body.comfort-mode .mini-card.info .value {
+  color: #8db7ff;
+}
+
+@media (max-width: 760px) {
+  .settings-actions {
+    justify-content: flex-start;
+  }
+}
+
+/* Background beauty pass + comfort-mode button colors */
+body {
+  background:
+    radial-gradient(circle at 11% 20%, rgba(0, 184, 107, 0.33), transparent 30%),
+    radial-gradient(circle at 88% 13%, rgba(66, 109, 227, 0.30), transparent 32%),
+    radial-gradient(circle at 54% 112%, rgba(98, 230, 255, 0.34), transparent 38%),
+    linear-gradient(135deg, #b9ded5 0%, #c9e8f3 46%, #a9d4f2 100%);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: -18%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.58;
+  background:
+    radial-gradient(circle at 24% 24%, rgba(255, 255, 255, 0.34) 0 2px, transparent 3px),
+    radial-gradient(circle at 75% 35%, rgba(255, 255, 255, 0.24) 0 1px, transparent 2px),
+    radial-gradient(circle at 44% 75%, rgba(31, 143, 255, 0.16), transparent 22%),
+    radial-gradient(circle at 16% 88%, rgba(0, 184, 107, 0.18), transparent 25%);
+  background-size: 120px 120px, 86px 86px, auto, auto;
+  filter: blur(0.2px);
+  animation: aicareBgDrift 30s ease-in-out infinite alternate;
+}
+
+body::after {
+  z-index: 0;
+  opacity: 0.22;
+  background:
+    linear-gradient(115deg, transparent 0%, rgba(255,255,255,0.38) 45%, transparent 65%),
+    radial-gradient(circle at center, rgba(255,255,255,0.22) 0 1px, transparent 1.5px);
+  background-size: auto, 32px 32px;
+}
+
+.shell {
+  z-index: 1;
+  isolation: isolate;
+}
+
+.shell::before,
+.shell::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: 999px;
+  filter: blur(2px);
+}
+
+.shell::before {
+  width: clamp(260px, 30vw, 440px);
+  height: clamp(260px, 30vw, 440px);
+  left: clamp(-180px, -12vw, -80px);
+  bottom: clamp(30px, 8vh, 110px);
+  background:
+    radial-gradient(circle, rgba(0, 184, 107, 0.24), transparent 68%);
+}
+
+.shell::after {
+  width: clamp(300px, 34vw, 520px);
+  height: clamp(300px, 34vw, 520px);
+  right: clamp(-230px, -15vw, -100px);
+  top: clamp(20px, 7vh, 100px);
+  background:
+    radial-gradient(circle, rgba(66, 109, 227, 0.22), transparent 70%);
+}
+
+@keyframes aicareBgDrift {
+  from { transform: translate3d(-18px, -10px, 0) rotate(0deg); }
+  to { transform: translate3d(20px, 14px, 0) rotate(2deg); }
+}
+
+body.comfort-mode {
+  background:
+    radial-gradient(circle at 12% 18%, rgba(0, 184, 107, 0.30), transparent 29%),
+    radial-gradient(circle at 83% 13%, rgba(66, 109, 227, 0.38), transparent 33%),
+    radial-gradient(circle at 56% 110%, rgba(98, 230, 255, 0.16), transparent 36%),
+    linear-gradient(135deg, #0f3131 0%, #193a4b 42%, #243f70 100%);
+}
+
+body.comfort-mode::before {
+  opacity: 0.74;
+  background:
+    radial-gradient(circle at 26% 22%, rgba(98, 230, 255, 0.20) 0 1px, transparent 2px),
+    radial-gradient(circle at 73% 30%, rgba(255, 255, 255, 0.12) 0 1px, transparent 2px),
+    radial-gradient(circle at 18% 82%, rgba(0, 184, 107, 0.24), transparent 24%),
+    radial-gradient(circle at 78% 72%, rgba(66, 109, 227, 0.24), transparent 26%),
+    conic-gradient(from 140deg at 50% 50%, transparent 0deg, rgba(98, 230, 255, 0.08) 54deg, transparent 118deg, rgba(0, 184, 107, 0.07) 190deg, transparent 260deg);
+  background-size: 110px 110px, 78px 78px, auto, auto, auto;
+}
+
+body.comfort-mode::after {
+  opacity: 0.18;
+  background:
+    linear-gradient(115deg, transparent 0%, rgba(154, 224, 255, 0.24) 46%, transparent 66%),
+    radial-gradient(circle at center, rgba(223, 248, 255, 0.16) 0 1px, transparent 1.8px);
+  background-size: auto, 34px 34px;
+}
+
+body.comfort-mode .shell::before {
+  background: radial-gradient(circle, rgba(0, 184, 107, 0.22), transparent 68%);
+}
+
+body.comfort-mode .shell::after {
+  background: radial-gradient(circle, rgba(66, 109, 227, 0.30), transparent 70%);
+}
+
+/* Keep comfort mode buttons meaningful instead of all looking grey. */
+body.comfort-mode .admin-btn.danger {
+  color: #ffe9ec !important;
+  background: linear-gradient(135deg, rgba(233, 86, 86, 0.42), rgba(233, 86, 86, 0.18));
+  border-color: rgba(255, 116, 116, 0.46);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.10), 0 10px 22px rgba(233, 86, 86, 0.12);
+}
+
+body.comfort-mode .admin-btn.warning {
+  color: #fff1ba !important;
+  background: linear-gradient(135deg, rgba(201, 144, 0, 0.42), rgba(255, 209, 102, 0.16));
+  border-color: rgba(255, 209, 102, 0.46);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.10), 0 10px 22px rgba(255, 209, 102, 0.10);
+}
+
+body.comfort-mode .admin-btn.info {
+  color: #e7f0ff !important;
+  background: linear-gradient(135deg, rgba(66, 109, 227, 0.46), rgba(98, 230, 255, 0.16));
+  border-color: rgba(98, 230, 255, 0.42);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.10), 0 10px 22px rgba(66, 109, 227, 0.14);
+}
+
+body.comfort-mode .admin-btn.danger:hover,
+body.comfort-mode .admin-btn.warning:hover,
+body.comfort-mode .admin-btn.info:hover {
+  filter: brightness(1.08);
+}
+
+@media (max-width: 760px) {
+  .shell::before,
+  .shell::after {
+    opacity: 0.6;
+  }
+}
+
+
+/* Move background monitoring / preview control to the camera panel */
+.side-panel .monitor-strip {
+  flex: 0 0 auto;
+  width: 100%;
+  margin-top: 2px;
+  box-shadow: none;
+}
+
+.side-panel .monitor-strip.active {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+}
+
+.side-panel .monitor-copy strong {
+  font-size: 0.86rem;
+}
+
+.side-panel .monitor-copy span {
+  font-size: 0.76rem;
+}
+
+.side-panel .small-btn {
+  min-width: 144px;
+  text-align: center;
+}
+
+/* Since the monitor strip is no longer in the left panel, let the intro breathe. */
+.main-panel .admin-panel {
+  margin-top: auto;
+}
+
+/* Keep the right panel compact when all five monitor cards + monitor strip are visible. */
+@media (max-height: 760px) {
+  .side-panel .monitor-strip {
+    padding: 8px 10px;
+  }
+
+  .side-panel .monitor-badge {
+    width: 30px;
+    height: 30px;
+    flex-basis: 30px;
+  }
+
+  .side-panel .monitor-copy strong {
+    font-size: 0.78rem;
+  }
+
+  .side-panel .monitor-copy span {
+    font-size: 0.70rem;
+  }
+
+  .side-panel .small-btn {
+    padding: 8px 10px;
+    min-width: 132px;
+    font-size: 0.72rem;
+  }
+}
+
+@media (max-width: 760px) {
+  .side-panel .monitor-strip.active {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .side-panel .small-btn {
+    width: 100%;
+  }
+}
+
+
+/* Comfort theme is now the default AiCare theme.
+   The Light/Comfort toggle was removed, so these styles apply without needing body.comfort-mode. */
+:root {
+  --bg-1: #17394a;
+  --bg-2: #224e68;
+  --card: rgba(26, 55, 70, 0.86);
+  --card-2: rgba(31, 64, 82, 0.90);
+  --text: #eaf7fb;
+  --muted: #b6d2dd;
+  --line: rgba(222, 246, 255, 0.16);
+  --shadow: 0 18px 46px rgba(5, 18, 31, 0.34);
+}
+
+body {
+  color: var(--text);
+  background:
+    radial-gradient(circle at 12% 18%, rgba(0, 184, 107, 0.30), transparent 29%),
+    radial-gradient(circle at 83% 13%, rgba(66, 109, 227, 0.38), transparent 33%),
+    radial-gradient(circle at 56% 110%, rgba(98, 230, 255, 0.16), transparent 36%),
+    linear-gradient(135deg, #0f3131 0%, #193a4b 42%, #243f70 100%);
+}
+
+body::before {
+  opacity: 0.74;
+  background:
+    radial-gradient(circle at 26% 22%, rgba(98, 230, 255, 0.20) 0 1px, transparent 2px),
+    radial-gradient(circle at 73% 30%, rgba(255, 255, 255, 0.12) 0 1px, transparent 2px),
+    radial-gradient(circle at 18% 82%, rgba(0, 184, 107, 0.24), transparent 24%),
+    radial-gradient(circle at 78% 72%, rgba(66, 109, 227, 0.24), transparent 26%),
+    conic-gradient(from 140deg at 50% 50%, transparent 0deg, rgba(98, 230, 255, 0.08) 54deg, transparent 118deg, rgba(0, 184, 107, 0.07) 190deg, transparent 260deg);
+  background-size: 110px 110px, 78px 78px, auto, auto, auto;
+}
+
+body::after {
+  opacity: 0.18;
+  background:
+    linear-gradient(115deg, transparent 0%, rgba(154, 224, 255, 0.24) 46%, transparent 66%),
+    radial-gradient(circle at center, rgba(223, 248, 255, 0.16) 0 1px, transparent 1.8px);
+  background-size: auto, 34px 34px;
+}
+
+.shell::before {
+  background: radial-gradient(circle, rgba(0, 184, 107, 0.22), transparent 68%);
+}
+
+.shell::after {
+  background: radial-gradient(circle, rgba(66, 109, 227, 0.30), transparent 70%);
+}
+
+.panel,
+.mini-card,
+.stat,
+.feature-card,
+.admin-panel {
+  background: var(--card);
+  border-color: var(--line);
+  box-shadow: var(--shadow);
+}
+
+.side-panel,
+.main-panel {
+  background: rgba(25, 53, 69, 0.88);
+}
+
+.hero-title,
+.placeholder h2,
+.stat-value,
+.mini-card .value,
+.feature-card h3,
+.admin-header strong,
+.monitor-copy strong,
+.info-drawer-header h2 {
+  color: #edfaff;
+}
+
+.hero-desc,
+.placeholder p,
+.feature-card p,
+.stat-label,
+.mini-card .label,
+.admin-header span,
+.brand-copy p,
+.hero-copy p,
+.monitor-copy span,
+.info-kicker {
+  color: #b6d2dd;
+}
+
+.preview {
+  background:
+    linear-gradient(180deg, rgba(31, 71, 86, 0.72), rgba(20, 48, 62, 0.72)),
+    linear-gradient(135deg, rgba(0, 184, 107, 0.12), rgba(66, 109, 227, 0.18));
+  border-color: rgba(222, 246, 255, 0.18);
+}
+
+.status-pill,
+.cam-chip,
+.btn-secondary,
+.small-btn,
+.admin-btn,
+.info-fab,
+.info-close,
+.admin-badge {
+  color: #dff4fb !important;
+  background: rgba(235, 251, 255, 0.12);
+  border-color: rgba(222, 246, 255, 0.18);
+}
+
+.status-pill.active {
+  color: #cefff0;
+  background: rgba(0, 184, 107, 0.18);
+}
+
+.monitor-strip {
+  background: linear-gradient(135deg, rgba(0, 184, 107, 0.14), rgba(66, 109, 227, 0.16));
+  border-color: rgba(98, 230, 255, 0.22);
+}
+
+.admin-panel {
+  background: rgba(25, 53, 69, 0.72);
+}
+
+.info-drawer {
+  background: rgba(25, 53, 69, 0.96);
+  border-color: rgba(222, 246, 255, 0.18);
+}
+
+.info-backdrop.active {
+  background: rgba(3, 12, 20, 0.52);
+}
+
+.access-not-granted {
+  color: #f3c242 !important;
+}
+
+#cameraAccess.access-granted {
+  color: #426DE3 !important;
+}
+
+.total-screen-card .value,
+.mini-card.info .value {
+  color: #8db7ff;
+}
+
+.admin-btn.danger {
+  color: #ffe9ec !important;
+  background: linear-gradient(135deg, rgba(233, 86, 86, 0.42), rgba(233, 86, 86, 0.18));
+  border-color: rgba(255, 116, 116, 0.46);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.10), 0 10px 22px rgba(233, 86, 86, 0.12);
+}
+
+.admin-btn.warning {
+  color: #fff1ba !important;
+  background: linear-gradient(135deg, rgba(201, 144, 0, 0.42), rgba(255, 209, 102, 0.16));
+  border-color: rgba(255, 209, 102, 0.46);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.10), 0 10px 22px rgba(255, 209, 102, 0.10);
+}
+
+.admin-btn.info {
+  color: #e7f0ff !important;
+  background: linear-gradient(135deg, rgba(66, 109, 227, 0.46), rgba(98, 230, 255, 0.16));
+  border-color: rgba(98, 230, 255, 0.42);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.10), 0 10px 22px rgba(66, 109, 227, 0.14);
+}
+
+.admin-btn.danger:hover,
+.admin-btn.warning:hover,
+.admin-btn.info:hover {
+  filter: brightness(1.08);
+}
+
+
+/* Supervisor feedback update: make Start Monitoring the main action and put Stop below it. */
+.actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.actions .btn-primary,
+.actions .btn-secondary {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.actions .btn-primary {
+  min-height: 46px;
+  font-size: 0.95rem;
+}
+
+.actions .btn-secondary {
+  min-height: 42px;
+  opacity: 0.92;
+}
+
+/* The floating help button is now a tips button. */
+.info-fab {
+  font-size: 1.35rem;
+}
+
+/* Confidence help beside Current Status percentage. */
+.status-value-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+
+.confidence-help {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 900;
+  line-height: 1;
+  color: #102833;
+  background: linear-gradient(135deg, #62e6ff, #18d39e);
+  box-shadow: 0 0 0 3px rgba(98, 230, 255, 0.10);
+  cursor: help;
+  z-index: 12;
+}
+
+.confidence-help::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  width: min(270px, 70vw);
+  padding: 10px 12px;
+  border-radius: 12px;
+  color: #eaf7fb;
+  background: rgba(7, 17, 31, 0.96);
+  border: 1px solid rgba(222, 246, 255, 0.16);
+  box-shadow: 0 14px 30px rgba(4, 14, 22, 0.38);
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.45;
+  transform: translateX(-50%) translateY(4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.confidence-help:hover::after,
+.confidence-help:focus::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Local fallback notification for User Settings demo buttons when Flask/app.py is not running. */
+.toast-container {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: min(380px, calc(100vw - 36px));
+  pointer-events: none;
+}
+
+.local-alert {
+  pointer-events: auto;
+  display: grid;
+  grid-template-columns: 42px 1fr auto;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 14px;
+  border-radius: 18px;
+  color: #eaf7fb;
+  background: rgba(25, 53, 69, 0.96);
+  border: 1px solid rgba(222, 246, 255, 0.16);
+  box-shadow: 0 18px 50px rgba(4, 14, 22, 0.38);
+  backdrop-filter: blur(14px);
+  transform: translateX(110%);
+  opacity: 0;
+  animation: localAlertIn 0.28s ease forwards;
+}
+
+.local-alert.hide {
+  animation: localAlertOut 0.2s ease forwards;
+}
+
+.local-alert-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  font-size: 1.2rem;
+  background: rgba(31, 143, 255, 0.12);
+}
+
+.local-alert-content strong {
+  display: block;
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+}
+
+.local-alert-content span,
+.local-alert-content small {
+  display: block;
+  color: #b6d2dd;
+  font-size: 0.85rem;
+  line-height: 1.42;
+}
+
+.local-alert-content small {
+  margin-top: 6px;
+  opacity: 0.78;
+  font-size: 0.74rem;
+}
+
+.local-alert-close {
+  width: 28px;
+  height: 28px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  color: #dff4fb;
+  background: rgba(235, 251, 255, 0.10);
+  border: 1px solid rgba(222, 246, 255, 0.14);
+}
+
+.local-alert-type-close .local-alert-icon {
+  background: rgba(233, 86, 86, 0.22);
+}
+
+.local-alert-type-far .local-alert-icon {
+  background: rgba(255, 209, 102, 0.22);
+}
+
+.local-alert-type-ergo .local-alert-icon,
+.local-alert-type-info .local-alert-icon {
+  background: rgba(66, 109, 227, 0.22);
+}
+
+.local-alert-type-safe .local-alert-icon,
+.local-alert-type-break_complete .local-alert-icon {
+  background: rgba(0, 184, 107, 0.18);
+}
+
+@keyframes localAlertIn {
+  from { transform: translateX(110%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes localAlertOut {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(110%); opacity: 0; }
+}
+
+@media (max-width: 760px) {
+  .confidence-help::after {
+    left: auto;
+    right: 0;
+    transform: translateY(4px);
+  }
+
+  .confidence-help:hover::after,
+  .confidence-help:focus::after {
+    transform: translateY(0);
+  }
+}
+
+
+/* Stop button refinement: Start stays full-width, Stop is half-width and turns red while camera is live. */
+.actions .btn-secondary {
+  width: 50%;
+  justify-self: center;
+  min-height: 40px;
+}
+
+.actions .btn-secondary.stop-live {
+  color: #fff4f4;
+  background: linear-gradient(135deg, rgba(233, 86, 86, 0.92), rgba(180, 48, 58, 0.80));
+  border-color: rgba(255, 116, 116, 0.56);
+  box-shadow: 0 12px 24px rgba(233, 86, 86, 0.20);
+}
+
+.actions .btn-secondary.stop-live:hover {
+  filter: brightness(1.06);
+}
+
+/* Simpler confidence hover bubble. */
+.confidence-help::after {
+  width: min(220px, 70vw);
+  font-size: 0.76rem;
+  line-height: 1.4;
+}
+
+@media (max-width: 760px) {
+  .actions .btn-secondary {
+    width: 100%;
+    justify-self: stretch;
+  }
+}
+
+/* Final UI polish: put camera status + tips inside the camera panel. */
+.panel-top-controls {
+  flex: 0 0 auto;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.panel-top-controls .status-pill,
+.panel-top-controls .info-fab {
+  position: static;
+  inset: auto;
+  flex: 0 0 auto;
+}
+
+.panel-top-controls .info-fab {
+  width: 40px;
+  height: 40px;
+  font-size: 1.35rem;
+  box-shadow: 0 10px 24px rgba(66, 109, 227, 0.18);
+}
+
+.panel-top-controls .status-pill {
+  min-height: 40px;
+  background: rgba(235, 251, 255, 0.13);
+  border-color: rgba(222, 246, 255, 0.20);
+}
+
+/* Keep old floating classes harmless if cached HTML still has them. */
+.floating-status {
+  position: static;
+  top: auto;
+  right: auto;
+}
+
+/* Extra model note below the logo. */
+.model-pill {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  margin-top: 7px;
+  padding: 5px 9px;
+  border-radius: 999px;
+  color: #dff4fb;
+  background: rgba(66, 109, 227, 0.18);
+  border: 1px solid rgba(98, 230, 255, 0.20);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+/* Make camera overlay chips visible even when webcam area is bright. */
+.camera-overlay .cam-chip {
+  color: #f2fbff !important;
+  background: rgba(9, 25, 36, 0.62);
+  border-color: rgba(235, 251, 255, 0.26);
+  box-shadow: 0 10px 24px rgba(4, 14, 22, 0.20);
+  backdrop-filter: blur(10px) saturate(1.1);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.28);
+}
+
+#distanceState,
+#previewState {
+  background: rgba(9, 25, 36, 0.70) !important;
+}
+
+/* Confidence explanation opens below the percentage icon. */
+.confidence-help::after {
+  top: calc(100% + 10px);
+  bottom: auto;
+  left: 50%;
+  width: min(220px, 70vw);
+  transform: translateX(-50%) translateY(-4px);
+  font-size: 0.76rem;
+  line-height: 1.4;
+  text-align: left;
+}
+
+.confidence-help:hover::after,
+.confidence-help:focus::after {
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Avoid old mobile fixed placement now that the controls live inside the panel. */
+@media (max-width: 760px) {
+  .panel-top-controls {
+    justify-content: flex-end;
+  }
+
+  .panel-top-controls .status-pill,
+  .panel-top-controls .info-fab {
+    position: static;
+  }
+}
+
+/* Final background motion polish: smoother, calmer aurora movement. */
+body {
+  background:
+    radial-gradient(ellipse at 10% 18%, rgba(0, 184, 107, 0.25), transparent 32%),
+    radial-gradient(ellipse at 88% 12%, rgba(66, 109, 227, 0.34), transparent 34%),
+    radial-gradient(ellipse at 52% 106%, rgba(98, 230, 255, 0.14), transparent 42%),
+    linear-gradient(135deg, #0d3030 0%, #17394a 43%, #263f70 100%);
+}
+
+body::before {
+  opacity: 0.64;
+  filter: blur(0.25px) saturate(1.08);
+  background:
+    radial-gradient(circle at 24% 22%, rgba(98, 230, 255, 0.16) 0 1px, transparent 2.2px),
+    radial-gradient(circle at 76% 31%, rgba(255, 255, 255, 0.11) 0 1px, transparent 2px),
+    radial-gradient(ellipse at 18% 78%, rgba(0, 184, 107, 0.23), transparent 29%),
+    radial-gradient(ellipse at 82% 72%, rgba(66, 109, 227, 0.24), transparent 31%),
+    radial-gradient(ellipse at 48% 46%, rgba(98, 230, 255, 0.08), transparent 39%),
+    conic-gradient(from 130deg at 50% 55%, transparent 0deg, rgba(98, 230, 255, 0.065) 54deg, transparent 124deg, rgba(0, 184, 107, 0.055) 202deg, transparent 286deg);
+  background-size: 122px 122px, 92px 92px, auto, auto, auto, auto;
+  transform-origin: 50% 50%;
+  animation: aicareBackgroundFloat 56s cubic-bezier(0.42, 0, 0.58, 1) infinite alternate;
+}
+
+body::after {
+  opacity: 0.14;
+  background:
+    linear-gradient(115deg, transparent 0%, rgba(154, 224, 255, 0.22) 44%, transparent 68%),
+    radial-gradient(circle at center, rgba(223, 248, 255, 0.14) 0 1px, transparent 1.8px);
+  background-size: 160% 160%, 38px 38px;
+  transform-origin: 50% 50%;
+  animation: aicareMistSweep 68s cubic-bezier(0.42, 0, 0.58, 1) infinite alternate;
+}
+
+.shell::before {
+  animation: aicareGlowFloatLeft 48s ease-in-out infinite alternate;
+}
+
+.shell::after {
+  animation: aicareGlowFloatRight 60s ease-in-out infinite alternate;
+}
+
+/* Tiny static texture on the panels so the background feels less flat without distracting the user. */
+.main-panel::before,
+.side-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0.12;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(255,255,255,0.18) 0 1px, transparent 1.8px),
+    radial-gradient(circle at 82% 72%, rgba(98,230,255,0.12) 0 1px, transparent 1.8px);
+  background-size: 54px 54px, 72px 72px;
+  mask-image: linear-gradient(135deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
+}
+
+.side-panel {
+  position: relative;
+  overflow: hidden;
+}
+
+.main-panel {
+  position: relative;
+}
+
+@keyframes aicareBackgroundFloat {
+  0% {
+    transform: translate3d(-18px, -12px, 0) scale(1.015) rotate(0deg);
+    background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0;
+  }
+  35% {
+    transform: translate3d(14px, 18px, 0) scale(1.035) rotate(1.1deg);
+    background-position: 18px 10px, -12px 16px, 0 0, 0 0, 0 0, 0 0;
+  }
+  70% {
+    transform: translate3d(22px, -8px, 0) scale(1.025) rotate(-0.8deg);
+    background-position: 34px 28px, -28px 30px, 0 0, 0 0, 0 0, 0 0;
+  }
+  100% {
+    transform: translate3d(-6px, 20px, 0) scale(1.04) rotate(1.8deg);
+    background-position: 48px 42px, -42px 46px, 0 0, 0 0, 0 0, 0 0;
+  }
+}
+
+@keyframes aicareMistSweep {
+  0% {
+    transform: translate3d(-28px, -18px, 0) skewX(-10deg) scale(1.03);
+    background-position: 0% 40%, 0 0;
+  }
+  50% {
+    transform: translate3d(24px, 20px, 0) skewX(-8deg) scale(1.06);
+    background-position: 58% 52%, 18px 24px;
+  }
+  100% {
+    transform: translate3d(38px, -10px, 0) skewX(-11deg) scale(1.04);
+    background-position: 100% 62%, 36px 46px;
+  }
+}
+
+@keyframes aicareGlowFloatLeft {
+  0% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.9; }
+  45% { transform: translate3d(34px, -26px, 0) scale(1.10); opacity: 0.72; }
+  100% { transform: translate3d(16px, 24px, 0) scale(1.04); opacity: 0.82; }
+}
+
+@keyframes aicareGlowFloatRight {
+  0% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.9; }
+  40% { transform: translate3d(-28px, 24px, 0) scale(1.08); opacity: 0.75; }
+  100% { transform: translate3d(-44px, -18px, 0) scale(1.03); opacity: 0.86; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before,
+  body::after,
+  .shell::before,
+  .shell::after {
+    animation: none !important;
+  }
+}
+
+
+/* Confidence tooltip fix: keep the explanation below the icon and inside the card area. */
+.monitor-panel,
+.monitor-cards,
+.mini-card {
+  overflow: visible;
+}
+
+.monitor-cards {
+  position: relative;
+  z-index: 8;
+}
+
+.mini-card {
+  position: relative;
+}
+
+.status-value-line {
+  position: relative;
+}
+
+.confidence-help {
+  isolation: isolate;
+  z-index: 30;
+  font-size: 0.68rem;
+}
+
+.confidence-help::after {
+  top: calc(100% + 12px);
+  bottom: auto;
+  left: 0;
+  right: auto;
+  width: min(260px, 64vw);
+  max-width: 260px;
+  transform: translateY(-4px);
+  white-space: normal;
+  text-align: left;
+  font-size: 0.76rem;
+  line-height: 1.45;
+  z-index: 80;
+}
+
+.confidence-help:hover::after,
+.confidence-help:focus::after {
+  transform: translateY(0);
+}
+
+.confidence-help::before {
+  content: "";
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 5px;
+  width: 10px;
+  height: 10px;
+  background: rgba(7, 17, 31, 0.96);
+  border-left: 1px solid rgba(222, 246, 255, 0.16);
+  border-top: 1px solid rgba(222, 246, 255, 0.16);
+  transform: rotate(45deg);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 79;
+  transition: opacity 0.18s ease;
+}
+
+.confidence-help:hover::before,
+.confidence-help:focus::before {
+  opacity: 1;
+}
+
+@media (max-width: 760px) {
+  .confidence-help::after {
+    left: auto;
+    right: 0;
+    width: min(250px, calc(100vw - 42px));
+    transform: translateY(-4px);
+  }
+
+  .confidence-help:hover::after,
+  .confidence-help:focus::after {
+    transform: translateY(0);
+  }
+
+  .confidence-help::before {
+    left: auto;
+    right: 5px;
+  }
+}
+
+
+/* Final confidence tooltip fix: keep it readable above all nearby cards. */
+.monitor-panel,
+.monitor-cards,
+.status-value-line,
+.mini-card {
+  overflow: visible !important;
+}
+
+.monitor-cards {
+  position: relative !important;
+  z-index: 80 !important;
+}
+
+.monitor-strip {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+.mini-card {
+  position: relative !important;
+}
+
+.mini-card:has(.confidence-help),
+.mini-card.confidence-card {
+  z-index: 300 !important;
+}
+
+.confidence-help {
+  position: relative !important;
+  z-index: 9999 !important;
+}
+
+.confidence-help::after {
+  top: calc(100% + 12px) !important;
+  bottom: auto !important;
+  left: -8px !important;
+  right: auto !important;
+  width: 245px !important;
+  max-width: min(245px, calc(100vw - 36px)) !important;
+  padding: 10px 12px !important;
+  transform: translateY(-4px) !important;
+  text-align: left !important;
+  white-space: normal !important;
+  color: #eaf7fb !important;
+  background: rgba(7, 17, 31, 0.98) !important;
+  border: 1px solid rgba(98, 230, 255, 0.22) !important;
+  box-shadow: 0 18px 38px rgba(4, 14, 22, 0.48) !important;
+  z-index: 10000 !important;
+}
+
+.confidence-help:hover::after,
+.confidence-help:focus::after {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.confidence-help::before {
+  content: "" !important;
+  position: absolute !important;
+  top: calc(100% + 4px) !important;
+  left: 5px !important;
+  width: 12px !important;
+  height: 12px !important;
+  background: rgba(7, 17, 31, 0.98) !important;
+  border-left: 1px solid rgba(98, 230, 255, 0.22) !important;
+  border-top: 1px solid rgba(98, 230, 255, 0.22) !important;
+  transform: rotate(45deg) !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  z-index: 10001 !important;
+  transition: opacity 0.18s ease !important;
+}
+
+.confidence-help:hover::before,
+.confidence-help:focus::before {
+  opacity: 1 !important;
+}
+
+@media (max-width: 760px) {
+  .confidence-help::after {
+    left: auto !important;
+    right: 0 !important;
+    transform: translateY(-4px) !important;
+  }
+
+  .confidence-help:hover::after,
+  .confidence-help:focus::after {
+    transform: translateY(0) !important;
+  }
+
+  .confidence-help::before {
+    left: auto !important;
+    right: 5px !important;
+  }
+}
