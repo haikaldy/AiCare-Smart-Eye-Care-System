@@ -1,6 +1,6 @@
 # AiCare – Smart Eye-Care System
 
-![AiCare](screenshots/Logo.png)
+![AiCare](AiCare%20Application/screenshots/Logo.png)
 
 AiCare is a computer vision project designed to monitor a user's viewing distance from the screen in real time. The system uses a YOLO model to detect the user's face and classify the viewing position as **Too Close**, **Safe**, or **Too Far**.
 
@@ -89,14 +89,13 @@ The Flask backend loads this model and processes images received from the fronte
 ## Screenshots
 
 ### AiCare Interface
-![AiCare Interface](screenshots/UI.png)
-
+![AiCare Interface](AiCare%20Application/screenshots/UI.png)
 
 ### Windows Notification
-![AiCare Notification](screenshots/notification.png)
+![AiCare Notification](AiCare%20Application/screenshots/notification.png)
 
 ### Project Poster
-![AiCare Poster](screenshots/Poster.png)
+![AiCare Poster](AiCare%20Application/screenshots/Poster.png)
 
 ## Feedback
 
