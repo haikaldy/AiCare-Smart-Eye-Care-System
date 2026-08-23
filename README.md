@@ -1,6 +1,6 @@
 # AiCare – Smart Eye-Care System
 
-![AiCare](screenshots/main-Logo.png)
+![AiCare](screenshots/Logo.png)
 
 AiCare is a computer vision project designed to monitor a user's viewing distance from the screen in real time. The system uses a YOLO model to detect the user's face and classify the viewing position as **Too Close**, **Safe**, or **Too Far**.
 
