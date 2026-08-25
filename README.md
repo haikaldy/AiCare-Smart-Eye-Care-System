@@ -95,7 +95,7 @@ The Flask backend loads this model and processes images received from the fronte
 ![AiCare Notification](AiCare%20Application/screenshots/notification.png)
 
 ### Project Poster
-![AiCare Poster](AiCare%20Application/screenshots/Poster.png)
+![AiCare Poster](AiCare%20Application/screenshots/Poste.png)
 
 ## Feedback
 
